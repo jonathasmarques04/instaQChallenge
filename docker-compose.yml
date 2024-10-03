@@ -6,9 +6,9 @@ services:
     volumes:
       - ./db/dumps:/app-db-dumps
     environment:
-      - POSTGRES_USER=pick_a_username
-      - POSTGRES_PASSWORD=pick_a_password
-      - POSTGRES_DB=pick_a_db_name
+      - POSTGRES_USER=jonathasmarques04
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=jonathasProduction
 
   testdb:
     image: postgres:15.1
@@ -17,6 +17,6 @@ services:
     volumes:
       - ./db/dumps:/app-db-dumps
     environment:
-      - POSTGRES_USER=pick_a_username
-      - POSTGRES_PASSWORD=pick_a_password
-      - POSTGRES_DB=pick_a_db_name
+      - POSTGRES_USER=jonathasmarques04
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=jonathasTest
