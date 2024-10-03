@@ -4,13 +4,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node src/server.ts"
+    "dev": "ts-node src/server.ts",
+    "start": "ts-node src/prisma.ts --respawn"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@apollo/server": "4.11.0",
+    "@prisma/client": "^5.20.0",
     "@types/node": "22.7.4",
     "graphql": "16.9.0",
     "instaqchallenge": "file:",
