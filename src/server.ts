@@ -1,19 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-
-interface UserInput {
-  name: string;
-  email: string;
-  password: string;
-  birthDate: string;
-}
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  birthDate: string;
-}
+import { User, UserInput } from "./aplication";
 
 const typeDefs = `#graphql
   type Query {
