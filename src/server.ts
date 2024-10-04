@@ -45,7 +45,7 @@ const resolvers = {
   },
   Mutation: {
     createUser: (_: any,{ data }: {data: UserInput}): User => ({
-      id:  Math.floor(Math.random() * 1000), // Simula um id
+      id:  Math.floor(Math.random() * 1000),
       name: data.name,
       email: data.email,
       birthDate: data.birthDate
