@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt"
+
 import { UserInput } from '../../../aplication';
 import { prisma } from '../../../infra';
 
@@ -29,11 +31,13 @@ export default {
         throw new Error("Email already exists")
       }
 
+      const passwordHashed = await bcrypt.hash(password, Math.random())
+
       const newUser = await prisma.user.create({
         data: {
           name,
           email,
-          password,
+          password: passwordHashed,
           birthDate,
         },
       });
