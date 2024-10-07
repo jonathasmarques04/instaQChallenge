@@ -1,8 +1,10 @@
 export interface UserInput {
-  name: string;
-  email: string;
-  password: string;
-  birthDate: string;
+  data: {
+    name: string;
+    email: string;
+    password: string;
+    birthDate: string;
+  };
 }
 
 export interface User {
