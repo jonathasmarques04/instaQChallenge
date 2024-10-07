@@ -15,7 +15,7 @@ export default {
     createUser: async (_: any, { data }: UserInput) => {
       const { name, email, password, birthDate } = data;
 
-      const newUser = prisma.user.create({
+      const newUser = await prisma.user.create({
         data: {
           name,
           email,
