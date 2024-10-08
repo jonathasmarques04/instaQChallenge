@@ -28,10 +28,11 @@ export default {
       })
 
       if(emailVerify){
-        throw new Error("Email already exists")
+        throw new Error("O email já existe")
       }
 
-      const passwordHashed = await bcrypt.hash(password, Math.random())
+      const saltRound = 10
+      const passwordHashed = await bcrypt.hash(password, saltRound)
 
       const newUser = await prisma.user.create({
         data: {
