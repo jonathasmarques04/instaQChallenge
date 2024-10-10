@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node src/index.ts -w"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +14,7 @@
     "@prisma/client": "5.20.0",
     "@types/node": "22.7.4",
     "bcrypt": "5.1.1",
+    "dotenv": "^16.4.5",
     "graphql": "16.9.0",
     "graphql-tools": "9.0.1",
     "instaqchallenge": "file:",
