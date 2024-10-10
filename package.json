@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r ts-node/register --timeout 10000",
     "dev": "ts-node src/index.ts"
   },
   "author": "",
@@ -18,16 +18,20 @@
     "graphql": "16.9.0",
     "graphql-tools": "9.0.1",
     "instaqchallenge": "file:",
-    "prisma": "5.20.0",
-    "ts-node": "10.9.2",
-    "typescript": "5.6.2"
+    "prisma": "5.20.0"
   },
   "devDependencies": {
     "@eslint/js": "9.11.1",
     "@types/bcrypt": "5.0.2",
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "10.0.9",
+    "chai": "^4.3.4",
     "eslint": "9.11.1",
     "globals": "15.10.0",
+    "mocha": "10.7.3",
     "prettier": "3.3.3",
+    "ts-node": "10.9.2",
+    "typescript": "5.6.3",
     "typescript-eslint": "8.8.0"
   }
 }
