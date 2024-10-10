@@ -8,7 +8,7 @@ let server: any;
 
 before(async () => {
   server = await startServer({ typeDefs, resolvers });
-  console.log("Server started...");
+  console.log("Beginning the test...");
 });
 
 after(async () => {
