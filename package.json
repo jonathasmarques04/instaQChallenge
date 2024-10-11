@@ -16,6 +16,7 @@
     "@types/node": "22.7.4",
     "axios": "1.7.7",
     "bcrypt": "5.1.1",
+    "dotenv": "16.4.5",
     "graphql": "16.9.0",
     "graphql-tools": "9.0.1",
     "instaqchallenge": "file:",

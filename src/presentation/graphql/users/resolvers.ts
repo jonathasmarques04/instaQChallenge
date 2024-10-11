@@ -1,7 +1,10 @@
-import bcrypt from "bcrypt"
-
 import { UserInput } from '../../../aplication';
 import { prisma } from '../../../infra';
+import { PrismaUserRepository } from '../../../infra/repositories';
+import { CreateUserUseCase } from '../../../aplication/use-cases/createUserUseCase';
+
+const prismaUserRepository = new PrismaUserRepository();
+const createUserUseCase = new CreateUserUseCase(prismaUserRepository);
 
 export default {
   Query: {
@@ -15,34 +18,7 @@ export default {
   },
   Mutation: {
     createUser: async (_: any, { data }: UserInput) => {
-      const { name, email, password, birthDate } = data;
-
-      if (password.length < 6 || !/[a-zA-Z]/.test(password) || !/[0-9]/.test(password)) {
-        throw new Error('A senha deve ter pelo menos 6 caracteres, incluindo pelo menos uma letra e um dígito.');
-      }
-
-      const emailVerify = await prisma.user.findFirst({
-        where: {
-            email: email
-        }
-      })
-
-      if(emailVerify){
-        throw new Error("O email já existe")
-      }
-
-      const saltRound = 10
-      const passwordHashed = await bcrypt.hash(password, saltRound)
-
-      const newUser = await prisma.user.create({
-        data: {
-          name,
-          email,
-          password: passwordHashed,
-          birthDate,
-        },
-      });
-      return newUser;
+      return await createUserUseCase.execute({ data });
     },
   },
 };
