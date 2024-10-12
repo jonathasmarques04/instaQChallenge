@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { expect } from 'chai';
+import * as dotenv from 'dotenv';
+
 import startServer from '../server';
 import typeDefs from '../presentation/graphql/typeDefs';
 import resolvers from '../presentation/graphql/users/resolvers';
+
+dotenv.config({ path: '/test.env' })
 
 let server: any;
 

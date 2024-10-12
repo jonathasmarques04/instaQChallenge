@@ -7,9 +7,10 @@ export interface UserInput {
   };
 }
 
-export interface User {
-  id: number;
+export interface UserResponse {
+  id: string;
   name: string;
   email: string;
+  password: string;
   birthDate: string;
 }
