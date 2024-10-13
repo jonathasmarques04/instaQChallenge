@@ -12,7 +12,6 @@ describe('API Test', () => {
         }
       `,
     });
-    console.log(response.data.data);
     expect(response.status).to.equal(200);
   });
 });

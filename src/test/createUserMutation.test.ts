@@ -1,7 +1,16 @@
 import axios from 'axios';
 import { expect } from 'chai';
+import { prisma } from '../infra';
 
 describe('Creation mutation test', () => {
+  before(async () => {
+    await prisma.user.deleteMany({})
+  })
+
+  after(async () => {
+    await prisma.user.deleteMany({})
+  })
+
   let userName = 'Jhon';
   let userEmail = 'john@example.com';
   let userPassword = 'password123';
@@ -16,41 +25,26 @@ describe('Creation mutation test', () => {
   }
 `;
 
+const variables = {
+  data: {
+    name: userName,
+    email: userEmail,
+    password: userPassword,
+    birthDate: userBirthday,
+  },
+};
+
   it('should create a user mutation', async () => {
     const response = await axios.post('http://localhost:4000/', {
-      query: `
-          mutation CreateUser($data: UserInput!) {
-            createUser(data: $data) {
-              name
-              email
-            }
-          }
-        `,
-      variables: {
-        data: {
-          name: userName,
-          email: userEmail,
-          password: userPassword,
-          birthDate: userBirthday,
-        },
-      },
+      query,
+      variables
     });
 
-    // const result = response.data.data
-    // expect(result.createUser.email).equal(userEmail)
     expect(response.status).equal(200);
-    console.log(response.data);
   });
 
   it('should throw error if email is already in use', async () => {
-    const variables = {
-      data: {
-        name: userName,
-        email: userEmail,
-        password: userPassword,
-        birthDate: userBirthday,
-      },
-    };
+    
     const response = await axios.post('http://localhost:4000/', {
       query,
       variables,
@@ -58,6 +52,7 @@ describe('Creation mutation test', () => {
 
     expect(response.data.errors).to.have.lengthOf(1);
     const error = response.data.errors[0];
-    expect(error.message).to.be.eq('O email já existe');
+    expect(error.message).to.equal('O email já existe');
+    expect(error.extensions.code).to.equal("INTERNAL_SERVER_ERROR");
   });
 });
