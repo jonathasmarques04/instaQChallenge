@@ -55,4 +55,24 @@ const variables = {
     expect(error.message).to.equal('O email já existe');
     expect(error.extensions.code).to.equal("INTERNAL_SERVER_ERROR");
   });
+
+  it('should throw error if password is invalid', async () => {
+    
+    const response = await axios.post('http://localhost:4000/', {
+      query,
+      variables: {
+        data: {
+          name: userName,
+          email: '123452@mail.com',
+          password: '1234',
+          birthDate: userBirthday,
+        }
+      },
+    });
+
+    expect(response.data.errors).to.have.lengthOf(1);
+    const error = response.data.errors[0];
+    expect(error.message).to.equal('A senha deve ter pelo menos 6 caracteres, incluindo pelo menos uma letra e um dígito.');
+    expect(error.extensions.code).to.equal("INTERNAL_SERVER_ERROR");
+  });
 });
