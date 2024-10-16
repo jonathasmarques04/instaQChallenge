@@ -20,6 +20,7 @@
     "graphql": "16.9.0",
     "graphql-tools": "9.0.1",
     "instaqchallenge": "file:",
+    "mocha": "10.7.3",
     "prisma": "5.20.0"
   },
   "devDependencies": {
@@ -28,9 +29,10 @@
     "@types/chai": "4.3.4",
     "@types/mocha": "10.0.9",
     "chai": "4.3.4",
+    "cross-env": "7.0.3",
+    "dotenv-cli": "7.4.2",
     "eslint": "9.11.1",
     "globals": "15.10.0",
-    "mocha": "10.7.3",
     "prettier": "3.3.3",
     "ts-node": "10.9.2",
     "typescript": "5.6.3",
