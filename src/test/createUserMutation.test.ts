@@ -1,16 +1,9 @@
 import axios from 'axios';
 import { expect } from 'chai';
 import { prisma } from '../infra';
+import deleteManyUsers from '../infra/utils/deleteUsers';
 
 describe('Creation mutation test', () => {
-  before(async () => {
-    await prisma.user.deleteMany({})
-  })
-
-  after(async () => {
-    await prisma.user.deleteMany({})
-  })
-
   let userName = 'Jhon';
   let userEmail = 'john@example.com';
   let userPassword = 'password123';
@@ -25,26 +18,40 @@ describe('Creation mutation test', () => {
   }
 `;
 
-const variables = {
-  data: {
-    name: userName,
-    email: userEmail,
-    password: userPassword,
-    birthDate: userBirthday,
-  },
-};
+  const variables = {
+    data: {
+      name: userName,
+      email: userEmail,
+      password: userPassword,
+      birthDate: userBirthday,
+    },
+  };
 
   it('should create a user mutation', async () => {
+    before(async () => {
+      await deleteManyUsers();
+    });
+
+    after(async () => {
+      await deleteManyUsers();
+    });
     const response = await axios.post('http://localhost:4000/', {
       query,
-      variables
+      variables,
     });
 
     expect(response.status).equal(200);
   });
 
   it('should throw error if email is already in use', async () => {
-    
+    before(async () => {
+      await deleteManyUsers();
+    });
+
+    after(async () => {
+      await deleteManyUsers();
+    });
+
     const response = await axios.post('http://localhost:4000/', {
       query,
       variables,
@@ -53,11 +60,18 @@ const variables = {
     expect(response.data.errors).to.have.lengthOf(1);
     const error = response.data.errors[0];
     expect(error.message).to.equal('O email já existe');
-    expect(error.extensions.code).to.equal("INTERNAL_SERVER_ERROR");
+    expect(error.extensions.code).to.equal('INTERNAL_SERVER_ERROR');
   });
 
   it('should throw error if password is invalid', async () => {
-    
+    before(async () => {
+      await deleteManyUsers();
+    });
+
+    after(async () => {
+      await deleteManyUsers();
+    });
+
     const response = await axios.post('http://localhost:4000/', {
       query,
       variables: {
@@ -66,13 +80,15 @@ const variables = {
           email: '123452@mail.com',
           password: '1234',
           birthDate: userBirthday,
-        }
+        },
       },
     });
 
     expect(response.data.errors).to.have.lengthOf(1);
     const error = response.data.errors[0];
-    expect(error.message).to.equal('A senha deve ter pelo menos 6 caracteres, incluindo pelo menos uma letra e um dígito.');
-    expect(error.extensions.code).to.equal("INTERNAL_SERVER_ERROR");
+    expect(error.message).to.equal(
+      'A senha deve ter pelo menos 6 caracteres, incluindo pelo menos uma letra e um dígito.',
+    );
+    expect(error.extensions.code).to.equal('INTERNAL_SERVER_ERROR');
   });
 });
